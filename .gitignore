@@ -66,3 +66,9 @@ dist
 */.DS_Store
 yarn-error.log
 *.csv
+
+# local env files
+.env.local
+
+# cached files
+/var/cache/

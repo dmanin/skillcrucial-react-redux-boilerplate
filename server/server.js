@@ -4,9 +4,10 @@ import path from 'path'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
-
 import cookieParser from 'cookie-parser'
+import userRoutes from './routes/users'
 import Html from '../client/html'
+import { apiResponseHeaders } from './middlewares'
 
 let connections = []
 
@@ -18,8 +19,9 @@ server.use(cors())
 server.use(express.static(path.resolve(__dirname, '../dist/assets')))
 server.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
 server.use(bodyParser.json({ limit: '50mb', extended: true }))
-
 server.use(cookieParser())
+server.use(apiResponseHeaders())
+server.use('/api/v1/users', userRoutes)
 
 server.use('/api/', (req, res) => {
   res.status(404)
